@@ -1,0 +1,471 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080a0f"><meta name="apple-mobile-web-app-capable" content="yes"><title>GOAT SCALP v340</title><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><style>
+:root{--bg:#080a0f;--card:#11151d;--line:#242c39;--txt:#f5f7fb;--muted:#8e98a8;--g:#43d17d;--r:#ff6670;--y:#efb84f;--b:#78aaff}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif}
+main{max-width:500px;margin:auto;padding:calc(env(safe-area-inset-top) + 7px) 10px calc(env(safe-area-inset-bottom) + 68px)}
+.top,.line{display:flex;justify-content:space-between;gap:10px;align-items:center}.brand,.k{font-size:11px;color:var(--muted);letter-spacing:.09em}.status{font-size:11px}.refresh{border:1px solid var(--line);background:#151a23;color:var(--txt);border-radius:9px;padding:6px 9px;font-size:11px;font-weight:800}
+.price{font-size:31px;font-weight:900;letter-spacing:-1.2px;margin:2px 0 5px}.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:9px 11px;margin:6px 0}
+.big{font-size:19px;font-weight:900;margin:2px 0}.hero{font-size:24px;font-weight:950;margin:2px 0}.reason{font-size:12px;line-height:1.35;margin-top:3px}.miniGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:7px}.mini{background:#0c1016;border-radius:9px;padding:7px}.mini b{display:block;font-size:14px;margin-top:2px}.glance{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}.glance>div{background:#0c1016;border-radius:9px;padding:7px 8px}.glance span{display:block;font-size:10px;color:var(--muted);margin-bottom:2px}.glance b{font-size:13px}.entryRow{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}.costBox{text-align:right}.costBox span{display:block;font-size:10px;color:var(--muted)}.costBox b{font-size:14px}.compactLine{padding:6px 0;border-top:1px solid var(--line);font-size:12px;margin-top:6px}.signal{border-width:1px}.signal.goodish{border-color:#275b3b}.signal.warnish{border-color:#6a5428}.signal.badish{border-color:#6a3036}.metric{padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}.metric:last-child{border:0}.muted{color:var(--muted)}.good{color:var(--g)}.bad{color:var(--r)}.warn{color:var(--y)}
+button{font:inherit}.record{width:100%;padding:12px;border:1px solid #354052;border-radius:12px;background:#171d27;color:var(--txt);font-weight:800}
+nav{position:fixed;left:0;right:0;bottom:0;background:#090c12eF;border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+nav button{width:32%;max-width:160px;padding:10px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-weight:800}nav .on{background:#202735;color:var(--txt)}
+.page{display:none}.page.on{display:block}.spark{width:100%;height:48px;background:#0c1016;border-radius:9px;margin-top:8px}.alertbox{display:none;position:sticky;top:calc(env(safe-area-inset-top) + 6px);z-index:5;background:#171d27;border:1px solid var(--y);border-radius:14px;padding:12px;margin:8px 0}.alertbox.on{display:block}.notice{font-size:10px;color:var(--muted);line-height:1.45;margin:10px 4px}.track{display:flex;align-items:center;justify-content:space-between;gap:8px}.trackMain{min-width:0}.trackTitle{font-size:15px;font-weight:900}.trackSub{font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.trackBtns{display:flex;gap:6px;flex-shrink:0}.trackBtn{border:1px solid #354052;background:#171d27;color:var(--txt);border-radius:9px;padding:8px 10px;font-size:11px;font-weight:900}.trackBtn.danger{border-color:#6a3036}.tiny{font-size:10px;color:var(--muted)}
+.marketbar{display:flex;gap:5px;margin:5px 0 6px}.marketbar button{flex:1;border:1px solid var(--line);background:#0c1016;color:var(--muted);border-radius:9px;padding:7px 2px;font-size:11px;font-weight:900}.marketbar button.on{background:#202735;color:var(--txt);border-color:#3b475a}.board{display:grid;gap:5px;margin-top:6px}.boardRow{display:grid;grid-template-columns:42px 1fr 88px;align-items:center;gap:7px;background:#0c1016;border-radius:9px;padding:7px 8px}.boardSym{font-size:12px;font-weight:950}.boardSig{font-size:13px;font-weight:900}.boardWhy{font-size:9px;color:var(--muted);margin-top:1px}.boardPx{text-align:right;font-size:11px;font-weight:800}.targetGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin-top:6px}.target{background:#0c1016;border-radius:9px;padding:7px 8px}.target span{display:block;font-size:9px;color:var(--muted)}.target b{font-size:12px}.subtle{font-size:9px;color:var(--muted);line-height:1.35;margin-top:5px}
+</style></head><body><main>
+<div class="top"><span class="brand">GOAT SCALP v340</span><span id="conn" class="status">시작 중</span><button id="refreshBtn" class="refresh" type="button">새로고침</button><span id="tickAge" class="status">-</span></div><div class="marketbar"><button data-m="BTC">BTC</button><button data-m="ETH">ETH</button><button data-m="SOL">SOL</button><button data-m="XRP">XRP</button></div><div id="price" class="price">-</div>
+<section id="live" class="page on">
+<div class="card"><div class="k">4종목 실시간 전광판</div><div id="scannerBoard" class="board"></div><div class="subtle">가격·체결·호가가 함께 맞는 종목만 ‘매수 후보’로 표시합니다. 수익을 보장하는 매수 지시는 아닙니다.</div></div>
+<div class="card"><div class="line"><div><div class="k">5천만원 기준 목표 매도가</div><b id="targetSymbol">-</b></div><span class="tiny">매수·매도 수수료 반영</span></div><div id="targetGrid" class="targetGrid"></div><div class="subtle">현재가에 5천만원을 매수한다고 가정한 계산입니다. 슬리피지·호가 변화는 제외됩니다.</div></div>
+<div id="decisionCard" class="card signal"><div class="k">지금 상황</div><div id="decision" class="hero">판단 준비 중</div><div id="decisionWhy" class="reason muted">실시간 데이터를 모으고 있습니다.</div><div class="glance"><div><span>가격 흐름</span><b id="regime">-</b></div><div><span>체결 힘</span><b id="flow">-</b></div><div><span>방금 변화</span><b id="change">-</b></div></div></div>
+<div class="card"><div class="k">움직임</div><div class="miniGrid"><div class="mini"><span class="muted">1분</span><b id="move1">-</b></div><div class="mini"><span class="muted">5분</span><b id="move5">-</b></div><div class="mini"><span class="muted">15분</span><b id="move15">-</b></div></div><div class="compactLine line"><span>가격 모양</span><b id="structure">-</b></div></div>
+<div class="card"><div class="k">지금 새로 들어갈 자리</div><div class="entryRow"><div><div id="tradeable" class="big">-</div><div id="entryWhy" class="reason muted">-</div></div><div class="costBox"><span>5천만원 왕복비용</span><b id="roundCost">-</b></div></div><div class="compactLine line"><span>주문하기</span><b id="liqSimple">-</b></div></div>
+<div class="card"><div class="k">방금 달라진 점</div><div id="changeHeadline" class="big">변화 확인 중</div><div id="changeExplain" class="reason muted">직전 흐름과 비교하고 있습니다.</div></div>
+<div style="display:none"><span id="vol"></span><span id="location"></span><span id="flowExplain"></span><span id="delta"></span><span id="liq"></span><span id="rangePos"></span><span id="risk"></span><span id="pnl"></span><span id="changeWhy"></span></div>
+</section>
+<section id="detail" class="page"><div class="card"><div class="k">판단 근거</div><div class="metric line"><span>데이터 상태</span><b id="dq">준비 중</b></div><div class="metric line"><span>가격 데이터 지연</span><b id="cage">-</b></div><div class="metric line"><span>가격 모양</span><b id="detailStructure">-</b></div><div class="metric line"><span>최근 10초 체결</span><b id="detail10">-</b></div><div class="metric line"><span>최근 30초 체결</span><b id="detail30">-</b></div><div class="metric line"><span>최근 60초 체결</span><b id="detail60">-</b></div><div class="metric line"><span>대기 주문</span><b id="detailBook">-</b></div><div class="metric line"><span>5천만원 왕복비용</span><b id="detailCost">-</b></div><div class="metric line"><span>내부 감지 상태</span><b id="setup">-</b></div><div id="why" class="muted">-</div><div id="checks" class="muted" style="margin-top:8px">-</div><span id="detailLocation" style="display:none"></span></div></section>
+<section id="log" class="page"><div class="card"><div class="k">최근 판단 변화</div><div id="decisionHistory" class="muted">의미 있는 변화가 생기면 자동으로 기록합니다.</div></div><div class="card"><div class="k">이 화면의 역할</div><div class="reason muted">주문 기능 없이 시장의 방향·체결 힘·변화 속도를 실시간으로 정리합니다. 기록은 시스템 판단을 개선하기 위한 자동 관찰 기록입니다.</div></div></section>
+</main><nav><button class="on" data-p="live">실시간</button><button data-p="detail">상세</button><button data-p="log">기록</button></nav>
+<script>
+const U='https://api.upbit.com/v1/candles/minutes/', W='wss://api.upbit.com/websocket/v1', CAP=50000000,FEE=.0005;
+const MARKETS={BTC:'KRW-BTC',ETH:'KRW-ETH',SOL:'KRW-SOL',XRP:'KRW-XRP'}; let symbol=localStorage.getItem('goatMarket')||'BTC', MARKET=MARKETS[symbol]||MARKETS.BTC;
+const ALL_CODES=Object.values(MARKETS), CODE_TO_SYMBOL=Object.fromEntries(Object.entries(MARKETS).map(([k,v])=>[v,k]));
+const scan=Object.fromEntries(ALL_CODES.map(c=>[c,{ticker:null,book:null,trades:[],samples:[]}])) ;
+try{var alertPrefs=JSON.parse(localStorage.getItem('goatAlertPrefs')||'{}')}catch{var alertPrefs={}}
+let stableSetup='관찰',candidateSetup='관찰',candidateSince=0,lastTelemetryKey='';
+let C={1:[],5:[],15:[]}, ticker=null, book=null,bookAt=0,trades=[], cvd=[], sock=null,lastMsg=0,retry=0,recentSids=new Set(),resumeAt=0,reconnectTimer=null,connGen=0,paused=false;
+const $=id=>document.getElementById(id), fmt=n=>Math.round(n).toLocaleString('ko-KR'), pc=n=>(n>=0?'+':'')+n.toFixed(2)+'%';
+let originLast=0,originQueue=Promise.resolve();
+function originGate(){originQueue=originQueue.then(async()=>{let wait=Math.max(0,10500-(Date.now()-originLast));if(wait)await new Promise(r=>setTimeout(r,wait));originLast=Date.now()});return originQueue}
+async function getJSON(url,ms=7000){await originGate();let c=new AbortController(),t=setTimeout(()=>c.abort(),ms);try{let r=await fetch(url,{cache:'no-store',signal:c.signal});if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}finally{clearTimeout(t)}}
+function aggregate(src,unit){
+ const ms=unit*60000,b=new Map();
+ for(const x of src){if(!Number.isFinite(x.timestamp)||!Number.isFinite(x.trade_price))continue;let k=Math.floor(x.timestamp/ms)*ms,g=b.get(k),vol=Number(x.candle_acc_trade_volume)||0,val=Number(x.candle_acc_trade_price)||0;
+  if(!g){g={timestamp:k,opening_price:x.opening_price,high_price:x.high_price,low_price:x.low_price,trade_price:x.trade_price,candle_acc_trade_volume:vol,candle_acc_trade_price:val};b.set(k,g)}
+  else{g.high_price=Math.max(g.high_price,x.high_price);g.low_price=Math.min(g.low_price,x.low_price);g.trade_price=x.trade_price;g.candle_acc_trade_volume+=vol;g.candle_acc_trade_price+=val}
+ }
+ return [...b.values()].sort((a,b)=>a.timestamp-b.timestamp)
+}
+function install1m(a){if(!Array.isArray(a)||!a.length||!a.every(x=>Number.isFinite(x.timestamp)&&Number.isFinite(x.trade_price)))throw Error('BAD REST');let z=a.slice().sort((x,y)=>x.timestamp-y.timestamp);if(!z.every((x,i)=>!i||x.timestamp>z[i-1].timestamp))throw Error('BAD ORDER');C[1]=z;C[5]=aggregate(z,5);C[15]=aggregate(z,15)}
+let preloading=false;
+async function preload(){if(preloading)return;preloading=true;$('conn').textContent='데이터 불러오는 중';
+ try{let a=await getJSON(`${U}1?market=${MARKET}&count=200`);install1m(a);$('conn').textContent='REST 정상';if(!sock||sock.readyState>1)connect()}
+ catch(e){$('conn').textContent='REST 재시도';if(!sock||sock.readyState>1)connect();setTimeout(preload,11000)}finally{preloading=false}
+}
+async function connect(){
+ const gen=++connGen;
+ clearTimeout(reconnectTimer);
+ if(!navigator.onLine){$('conn').textContent='오프라인';return}
+ if(sock&&sock.readyState<2)sock.close(); $('conn').textContent='실시간 연결 중';
+ await originGate(); if(gen!==connGen||paused)return;
+ sock=new WebSocket(W);sock.binaryType='arraybuffer';
+ sock.onopen=()=>{retry=0;$('conn').textContent='실시간';sock.send(JSON.stringify([{ticket:'goat-v340'},{type:'ticker',codes:ALL_CODES,is_only_realtime:true},{type:'trade',codes:ALL_CODES,is_only_realtime:true},{type:'orderbook',codes:ALL_CODES.map(c=>c+'.15')},{format:'DEFAULT'}]))};
+ sock.onmessage=e=>{lastMsg=Date.now();let s=typeof e.data==='string'?e.data:new TextDecoder().decode(e.data),d;try{d=JSON.parse(s)}catch{return}
+  if(d.error){$('conn').textContent='실시간 오류';return}
+  updateScanner(d);
+  if(d.code!==MARKET)return;
+  if(d.type==='ticker'&&Number.isFinite(d.trade_price))ticker=d;
+  if(d.type==='orderbook'&&Array.isArray(d.orderbook_units)&&d.orderbook_units.length){book=d;bookAt=Date.now()}
+  if(d.type==='trade'&&Number.isFinite(d.trade_price)&&Number.isFinite(d.trade_volume)&&['BID','ASK'].includes(d.ask_bid)){let sid=d.sequential_id??`${d.trade_timestamp||d.timestamp||0}:${d.trade_price}:${d.trade_volume}:${d.ask_bid}`;if(recentSids.has(sid))return;recentSids.add(sid);if(recentSids.size>500){recentSids=new Set([...recentSids].slice(-250))}trades.push({t:d.trade_timestamp||Date.now(),p:d.trade_price,v:d.trade_volume,side:d.ask_bid,delta:(d.ask_bid==='BID'?1:-1)*d.trade_volume*d.trade_price});}
+  let now=Date.now();trades=trades.filter(x=>x.t>now-300000); render();
+ };
+ sock.onclose=()=>{ if(gen!==connGen||paused)return; $('conn').textContent='재연결 중';reconnectTimer=setTimeout(connect,Math.max(11000,Math.min(60000,11000*2**Math.min(retry++,3))))};
+ sock.onerror=()=>sock.close();
+}
+function updateScanner(d){
+ let x=scan[d.code];if(!x)return;let now=Date.now();
+ if(d.type==='ticker'&&Number.isFinite(d.trade_price)){x.ticker=d;let last=x.samples.at(-1);if(!last||now-last.t>=1000)x.samples.push({t:now,p:d.trade_price});x.samples=x.samples.filter(z=>z.t>now-300000)}
+ if(d.type==='orderbook'&&Array.isArray(d.orderbook_units)&&d.orderbook_units.length)x.book={...d,at:now};
+ if(d.type==='trade'&&Number.isFinite(d.trade_price)&&Number.isFinite(d.trade_volume)&&['BID','ASK'].includes(d.ask_bid)){x.trades.push({t:d.trade_timestamp||now,krw:d.trade_price*d.trade_volume,side:d.ask_bid});x.trades=x.trades.filter(z=>z.t>now-120000)}
+ renderScanner();
+}
+function scanPriceRet(x,sec){let now=Date.now(),cur=x.ticker?.trade_price;if(!cur)return null,ref=null;for(let z of x.samples){if(z.t<=now-sec*1000)ref=z.p;else break}return ref?(cur/ref-1)*100:null}
+function scanFlow(x,sec){let a=x.trades.filter(z=>z.t>Date.now()-sec*1000),buy=a.filter(z=>z.side==='BID').reduce((s,z)=>s+z.krw,0),sell=a.filter(z=>z.side==='ASK').reduce((s,z)=>s+z.krw,0),tot=buy+sell;return {imb:tot?(buy-sell)/tot:0,tot}}
+function scanSpread(x){let u=x.book?.orderbook_units,p=x.ticker?.trade_price;if(!u?.length||!p)return null;return (u[0].ask_price-u[0].bid_price)/p*100}
+function adaptiveMove(x){let s=x.samples;if(s.length<70)return .035;let vals=[];for(let i=30;i<s.length;i+=5){let ref=s[i-30]?.p,cur=s[i]?.p;if(ref&&cur)vals.push(Math.abs((cur/ref-1)*100))}if(!vals.length)return .035;vals.sort((a,b)=>a-b);return Math.max(.025,vals[Math.floor(vals.length*.65)]||.035)}
+function scanSignal(code){let x=scan[code],r30=scanPriceRet(x,30),r60=scanPriceRet(x,60),f30=scanFlow(x,30),f60=scanFlow(x,60),sp=scanSpread(x),warm=x.samples.length>=45&&f60.tot>0&&sp!=null;if(!warm)return {label:'준비 중',why:'실시간 흐름 수집 중',tone:'muted'};let cut=adaptiveMove(x),liq=sp<=.06;if(!liq)return {label:'대기',why:'호가 간격이 불리함',tone:'warn'};if(r30>cut&&r60>0&&f30.imb>.14&&f60.imb>.08){let strong=f30.imb>.24&&r30>cut*1.5;return {label:strong?'강한 매수 후보':'매수 후보',why:`가격↑ · 매수체결 ${Math.round(f30.imb*100)}% 우위`,tone:'good'}}if(r30< -cut&&r60<0&&f30.imb<-.14&&f60.imb<-.08)return {label:'매도 압력',why:`가격↓ · 매도체결 ${Math.round(Math.abs(f30.imb)*100)}% 우위`,tone:'bad'};if(Math.abs(r30)>cut*2.8)return {label:'추격 주의',why:'짧은 시간 급변 후 구간',tone:'warn'};return {label:'대기',why:'가격·체결 조건 불일치',tone:''}}
+function renderScanner(){let box=$('scannerBoard');if(!box)return;box.textContent='';for(let sym of Object.keys(MARKETS)){let code=MARKETS[sym],x=scan[code],sg=scanSignal(code),row=document.createElement('div');row.className='boardRow';let a=document.createElement('div');a.className='boardSym';a.textContent=sym;let b=document.createElement('div'),t=document.createElement('div'),w=document.createElement('div');t.className='boardSig '+sg.tone;t.textContent=sg.label;w.className='boardWhy';w.textContent=sg.why;b.append(t,w);let c=document.createElement('div');c.className='boardPx';c.textContent=x.ticker?fmt(x.ticker.trade_price)+'원':'-';row.append(a,b,c);row.onclick=()=>setMarket(sym);box.appendChild(row)}renderTargets()}
+function targetSellPrice(current,profit){if(!current)return null;let qty=CAP/(current*(1+FEE));return (CAP+profit)/(qty*(1-FEE))}
+function renderTargets(){let x=scan[MARKET],p=x?.ticker?.trade_price||ticker?.trade_price,box=$('targetGrid');if(!box)return;$('targetSymbol').textContent=symbol+(p?' · '+fmt(p)+'원':'');box.textContent='';for(let profit of [200000,300000,400000,500000]){let d=document.createElement('div');d.className='target';let s=document.createElement('span');s.textContent='+'+(profit/10000)+'만원';let b=document.createElement('b');let target=targetSellPrice(p,profit);b.textContent=target?fmt(target)+'원':'-';d.append(s,b);box.appendChild(d)}}
+function ret(u,n=1){
+ let a=C[1];if(!a.length)return null;
+ let last=ticker?ticker.trade_price:a.at(-1).trade_price,minutes=u*n;
+ let rawAnchor=ticker?.timestamp||a.at(-1).timestamp,now=Date.now(),anchor=Math.min(rawAnchor,now+5000),target=anchor-minutes*60000,ref=null;
+ for(let i=a.length-1;i>=0;i--){if(a[i].timestamp<=target){ref=a[i].trade_price;break}}
+ if(!ref)return null;return (last/ref-1)*100
+}
+function volPercentile(){let a=C[1];if(a.length<120)return 50;let ranges=[];for(let end=60;end<=a.length;end+=10){let w=a.slice(Math.max(0,end-60),end),last=w.at(-1)?.trade_price;if(w.length<50||!last)continue;ranges.push((Math.max(...w.map(x=>x.high_price))-Math.min(...w.map(x=>x.low_price)))/last*100)}if(ranges.length<3)return 50;let cur=ranges.at(-1),below=ranges.filter(x=>x<=cur).length;return below/ranges.length*100}
+function atrange(){let a=C[5].slice(-12),p=ticker?ticker.trade_price:a.at(-1)?.trade_price;if(!a.length||!p)return 0;return (Math.max(...a.map(x=>x.high_price))-Math.min(...a.map(x=>x.low_price)))/p*100}
+function vwap(){let a=C[1].slice(-60).filter(x=>Number.isFinite(x.candle_acc_trade_volume)&&x.candle_acc_trade_volume>0);let num=0,den=0;for(let x of a){let tp=(x.high_price+x.low_price+x.trade_price)/3,v=x.candle_acc_trade_volume;num+=tp*v;den+=v}return den?num/den:null}
+function flow(sec){let a=trades.filter(x=>x.t>Date.now()-sec*1000),b=a.filter(x=>x.side==='BID').reduce((s,x)=>s+x.v,0),q=a.filter(x=>x.side==='ASK').reduce((s,x)=>s+x.v,0);return {d:b-q,b,q}}
+function ob(){if(!book||!ticker)return {ratio:null,spread:null};let p=ticker.trade_price,u=book.orderbook_units.filter(x=>x.bid_price>0&&x.ask_price>0&&x.bid_size>=0&&x.ask_size>=0);if(!u.length)return {ratio:null,spread:null};let b=u.filter(x=>Math.abs(x.bid_price-p)/p<=.0025).reduce((s,x)=>s+x.bid_size,0),a=u.filter(x=>Math.abs(x.ask_price-p)/p<=.0025).reduce((s,x)=>s+x.ask_size,0);let sp=(u[0].ask_price-u[0].bid_price)/p*100;return {ratio:a?b/a:null,spread:sp>=0?sp:null}}
+function structure(){
+ let a=C[1].slice(-21,-1);if(a.length<8)return '-';
+ let highs=[],lows=[];
+ for(let i=2;i<a.length-2;i++){
+  if(a[i].high_price>=a[i-1].high_price&&a[i].high_price>=a[i-2].high_price&&a[i].high_price>a[i+1].high_price&&a[i].high_price>a[i+2].high_price)highs.push(a[i].high_price);
+  if(a[i].low_price<=a[i-1].low_price&&a[i].low_price<=a[i-2].low_price&&a[i].low_price<a[i+1].low_price&&a[i].low_price<a[i+2].low_price)lows.push(a[i].low_price);
+ }
+ if(highs.length<2||lows.length<2)return '혼조';
+ let hh=highs.at(-1)>highs.at(-2),hl=lows.at(-1)>lows.at(-2),lh=highs.at(-1)<highs.at(-2),ll=lows.at(-1)<lows.at(-2);
+ return hh&&hl?'HH / HL':lh&&ll?'LH / LL':'혼조'
+}
+function slip(side,krw=CAP){
+ if(!book||!Array.isArray(book.orderbook_units)||!book.orderbook_units.length)return null;
+ let remain=krw,qty=0,cost=0,levels=book.orderbook_units.map(u=>side==='BUY'?[u.ask_price,u.ask_size]:[u.bid_price,u.bid_size]);
+ for(let [px,sz] of levels){let levelKrw=px*sz,take=Math.min(remain,levelKrw);if(take<=0)continue;let q=take/px;qty+=q;cost+=q*px;remain-=take;if(remain<=1)break}
+ if(remain>krw*.01||qty<=0)return null;
+ let avg=cost/qty,ref=ticker?.trade_price||levels[0][0];return {avg,impact:(side==='BUY'?avg/ref-1:1-avg/ref)*100,coverage:(krw-remain)/krw}
+}
+function effectiveCost(){let b=slip('BUY'),q=slip('SELL');if(!b||!q)return {fee:FEE*2*100,impact:null,total:null};let impact=b.impact+q.impact;return {fee:FEE*2*100,impact,total:FEE*2*100+impact}}
+function risk(p){let a=C[1].slice(-21,-1);if(!a.length)return null;let lo=Math.min(...a.map(x=>x.low_price)),hi=Math.max(...a.map(x=>x.high_price));return {down:(lo/p-1)*100,up:(hi/p-1)*100,rr:(hi-p)>0&&(p-lo)>0?(hi-p)/(p-lo):null}}
+function cls(el,n){el.className=n>0?'good':n<0?'bad':''}
+
+function saveTelemetry(setup,regime,tradeable,p,f60,o,st){
+ let key=[setup,regime,tradeable,st,Math.sign(f60.d)].join('|');if(key===lastTelemetryKey)return;lastTelemetryKey=key;
+ try{let a=JSON.parse(localStorage.getItem('goatTelemetry')||'[]');a.unshift({t:new Date().toISOString(),market:MARKET,p,setup,regime,tradeable,structure:st,delta60:f60.d,spread:o.spread,bookRatio:o.ratio,vwap60:vwap(),ret1:ret(1,1),ret5:ret(5,1),ret15:ret(15,1),cost:effectiveCost().total,outcomes:{}});localStorage.setItem('goatTelemetry',JSON.stringify(a.slice(0,1000)))}catch{}
+}
+
+function updateTelemetryOutcomes(p){
+ try{
+  let a=JSON.parse(localStorage.getItem('goatTelemetry')||'[]'),now=Date.now(),changed=false;
+  for(let x of a){if(!x.outcomes)x.outcomes={};let age=(now-new Date(x.t).getTime())/60000;
+   for(let h of [5,15,30])if(age>=h&&x.outcomes[h]==null&&x.p){x.outcomes[h]={gross:(p/x.p-1)*100,net:(p/x.p-1)*100-(Number.isFinite(x.cost)?x.cost:0)};changed=true}
+  }
+  if(changed)localStorage.setItem('goatTelemetry',JSON.stringify(a.slice(0,1000)))
+ }catch{}
+}
+
+function moneyFlow(n){let a=Math.abs(n);return (n>=0?'매수 +':'매도 ')+(a>=100000000?(a/100000000).toFixed(2)+'억':(a/10000).toFixed(0)+'만')+'원'}
+function pctText(x){return x==null?'자료 부족':`${x>=0?'상승 ':'하락 '}${Math.abs(x).toFixed(2)}%`}
+function flowWords(f10,f30,f60,flowDir,accel){
+ if(flowDir>0){if(accel)return ['매수 힘이 빠르게 강해짐','최근 체결에서 매수 쪽 힘이 더 빨라지고 있습니다.'];if(f10.d<0)return ['매수 우세지만 단기 약화','30~60초는 매수 우세지만 최근 10초는 매도가 들어옵니다.'];return ['매수 우세','최근 30~60초 체결은 매수 쪽이 우세합니다.']}
+ if(flowDir<0){if(accel)return ['매도 힘이 빠르게 강해짐','최근 체결에서 매도 쪽 힘이 더 빨라지고 있습니다.'];if(f10.d>0)return ['매도 우세지만 단기 반등','30~60초는 매도 우세지만 최근 10초는 매수가 들어옵니다.'];return ['매도 우세','최근 30~60초 체결은 매도 쪽이 우세합니다.']}
+ return ['힘겨루기','짧은 구간과 긴 구간의 매수·매도 방향이 엇갈립니다.']
+}
+function humanStructure(st){return st==='HH / HL'?'고점·저점이 높아지는 중':st==='LH / LL'?'고점·저점이 낮아지는 중':'방향이 뚜렷하지 않음'}
+function rangePosition(rk){if(!rk||!Number.isFinite(rk.down)||!Number.isFinite(rk.up))return {label:'자료 부족',ratio:null};let span=rk.up-rk.down;if(span<=0)return {label:'범위 계산 중',ratio:null};let ratio=(-rk.down)/span;if(ratio>=.8)return {label:'최근 범위 상단 부근',ratio};if(ratio<=.2)return {label:'최근 범위 하단 부근',ratio};return {label:'최근 범위 중간',ratio}}
+function render(){
+ let age=lastMsg?Date.now()-lastMsg:999999, flowReady=trades.length>=5 && trades.some(x=>x.t<Date.now()-30000);
+ let ca=C[1].length?Date.now()-C[1].at(-1).timestamp:999999;$('cage').textContent=ca<120000?Math.round(ca/1000)+'s':'지연';$('dq').textContent=age>5000||ca>120000?'지연':flowReady?'정상':'준비 중';
+ if(!ticker)return;let p=ticker.trade_price,r5=ret(5,1),r15=ret(15,1),rg=atrange(),vw=vwap(),f10=flow(10),f30=flow(30),f60=flow(60),o=ob(),st=structure(),rk=risk(p);
+ $('price').textContent=fmt(p)+'원'; $('conn').textContent=Date.now()-lastMsg>5000?'지연':'실시간';
+ let vp=volPercentile(),dirCut=Math.max(.08,rg*.20);let regime=vp>=95?'변동 큼':(r15!==null&&r15>dirCut?'상승 흐름':r15!==null&&r15<-dirCut?'하락 흐름':'횡보');
+ $('regime').textContent=regime;$('vol').textContent='60분 움직임 '+rg.toFixed(2)+'% · 평소 대비 '+Math.round(vp)+'백분위';
+ let avgGap=vw?(p/vw-1)*100:null;$('location').textContent=avgGap==null?'자료 부족':avgGap>.12?'최근 60분 평균보다 높은 편':avgGap<-.12?'최근 60분 평균보다 낮은 편':'최근 60분 평균 부근';
+ $('structure').textContent=humanStructure(st);$('move1').textContent=pctText(ret(1,1));$('move5').textContent=pctText(r5);$('move15').textContent=pctText(r15);
+ let im=x=>(x.b+x.q)>0?x.d/(x.b+x.q):0,i10=im(f10),i30=im(f30),i60=im(f60),dir=Math.abs(i60)>=.08?Math.sign(i60):0,shortDir=Math.abs(i10)>=.08?Math.sign(i10):0,midDir=Math.abs(i30)>=.08?Math.sign(i30):0,flowDir=(dir!==0&&midDir===dir)?dir:0,accel=flowDir!==0&&shortDir===flowDir&&Math.abs(i10)>Math.max(Math.abs(i60)*1.35,.12);
+ let fw=flowWords(f10,f30,f60,flowDir,accel);$('flow').textContent=fw[0];$('flowExplain').textContent=fw[1];cls($('flow'),flowDir);$('detailStructure').textContent=humanStructure(st);$('detail10').textContent=moneyFlow(f10.d);$('detail30').textContent=moneyFlow(f30.d);$('detail60').textContent=moneyFlow(f60.d);
+ $('delta').textContent=`10초 ${moneyFlow(f10.d)} · 30초 ${moneyFlow(f30.d)} · 60초 ${moneyFlow(f60.d)}`;
+ let sb=slip('BUY'),ss=slip('SELL'),impactBad=(sb&&sb.impact>.06)||(ss&&ss.impact>.06);
+ $('liq').textContent=o.ratio?`호가비 ${o.ratio.toFixed(2)} · 스프레드 ${o.spread.toFixed(3)}% · 5천만 영향 매수 ${sb?sb.impact.toFixed(3)+'%':'N/A'} / 매도 ${ss?ss.impact.toFixed(3)+'%':'N/A'}`:'수집 중';let ecNow=effectiveCost();$('liq').textContent+=` · 예상 왕복비용≈${ecNow.total==null?'N/A':ecNow.total.toFixed(3)}%`;$('roundCost').textContent=ecNow.total==null?'계산 중':('약 '+fmt(CAP*ecNow.total/100)+'원 · '+ecNow.total.toFixed(3)+'%');$('liqSimple').textContent=ecNow.total==null?'확인 중':impactBad?'큰 주문 영향 주의':(o.spread!==null&&o.spread<=.04?'원활':'주의 필요');$('detailCost').textContent=ecNow.total==null?'계산 중':`약 ${fmt(CAP*ecNow.total/100)}원 (${ecNow.total.toFixed(3)}%)`;$('detailBook').textContent=o.ratio==null?'자료 부족':o.ratio>1.25?'매수 주문 많음':o.ratio<.8?'매도 주문 많음':'비슷함';
+ let bookStale=!bookAt||Date.now()-bookAt>5000,tradeable=(age>5000||ca>120000||bookStale)?'데이터 지연':!flowReady?'WARM-UP':vp>=95?'거래 회피':vp>=85?'주의':o.spread!==null&&o.spread>.04?'주의':impactBad?'주의':effectiveCost().total==null?'주의':'정상';
+ let rp=rangePosition(rk);$('rangePos').textContent=rp.label; let entryLabel='지금은 기다리기',entryReason='방향과 체결 힘이 함께 확인되지 않았습니다.'; if(tradeable==='데이터 지연'||tradeable==='WARM-UP'){entryLabel='판단 준비 중';entryReason='실시간 데이터를 더 모으는 중입니다.'} else if(tradeable==='거래 회피'){entryLabel='지금은 피하기';entryReason='변동성이 너무 커 짧은 진입에 불리합니다.'} else if(tradeable==='주의'){entryLabel='조건 더 확인';entryReason='비용·유동성 또는 변동성 조건이 평소보다 불리합니다.'} else if(regime==='상승 흐름'&&st==='HH / HL'&&flowDir>0){entryLabel=accel?'상승 조건 강해짐':'상승 조건 맞는 중';entryReason='가격 상승 흐름과 실제 매수 체결이 같은 방향입니다.'} else if(rp.ratio!=null&&rp.ratio>.8){entryLabel='지금 따라붙기 부담';entryReason='최근 움직임의 위쪽이라 새 진입 여유가 작습니다.'} else if(flowDir<0){entryLabel='지금은 기다리기';entryReason='최근 체결이 매도 쪽으로 기울어 있습니다.'} $('tradeable').textContent=entryLabel;$('entryWhy').textContent=entryReason;
+ let setup='관찰', why='위치·구조·체결 흐름을 확인 중';
+ let price1=ret(1,1),signalDir=(dir!==0&&Math.sign(f30.d)===dir)?dir:0,buyAbs=flowReady&&Math.abs(i60)>=.10&&signalDir>0&&price1!==null&&price1<-.03,sellAbs=flowReady&&Math.abs(i60)>=.10&&signalDir<0&&price1!==null&&price1>.03,absorption=buyAbs||sellAbs;
+ if(buyAbs){setup='매수 흡수';why='공격적 매수 우세에도 가격이 하락해 매수 흡수 가능성'}
+ else if(sellAbs){setup='매도 흡수';why='공격적 매도 우세에도 가격이 상승해 매도 흡수 가능성'}
+ if(!absorption&&flowReady&&regime==='상승 흐름'&&st==='HH / HL'&&signalDir>0){setup='눌림 / 추세 지속';why='상승 레짐 + 상승 구조 + 매수 체결 우세'}
+ else if(flowReady&&regime==='하락 흐름'&&st==='LH / LL'&&signalDir<0){setup='하락 추세 관찰';why='하락 레짐 + 하락 구조 + 매도 체결 우세'}
+ else if(flowReady&&regime==='횡보'&&r5!==null&&Math.abs(r5)>Math.max(.06,rg*.12)&&signalDir===Math.sign(r5)){setup='돌파 관찰';why='횡보 레짐에서 단기 가격·체결 방향 동조'}
+ if(tradeable!=='정상'){setup='주의';why=tradeable==='데이터 지연'?'데이터 freshness 부족':'변동성 또는 스프레드 조건 불리'}
+ if(setup!==candidateSetup){candidateSetup=setup;candidateSince=Date.now()}if(setup==='주의'||Date.now()-candidateSince>=3000)stableSetup=setup;$('setup').textContent=stableSetup+(stableSetup!==setup?' · 확인 중':'');$('why').textContent=why;
+ let checks=[['데이터',tradeable!=='데이터 지연'],['유동성',o.spread!==null&&o.spread<=.04],['체결',flowReady],['구조',st!=='혼조'&&st!=='-'],['지속',stableSetup===setup]];
+ $('checks').textContent=checks.map(([k,v])=>`${v?'✓':'·'} ${k}`).join('   ');
+ let decision='진입 조건 부족',decisionWhy='방향과 체결 힘이 충분히 맞지 않습니다.',tone='';
+ if(tradeable==='데이터 지연'||!flowReady){decision='판단 준비 중';decisionWhy='실시간 데이터를 더 확인해야 합니다.'}
+ else if(tradeable==='거래 회피'){decision='추격 진입 위험';decisionWhy='변동성이 과도해 짧은 움직임에도 손실 폭이 커질 수 있습니다.';tone='badish'}
+ else if(regime==='상승 흐름'&&st==='HH / HL'&&flowDir>0){decision=accel?'상승 힘 강화':'상승 흐름 확인';decisionWhy='가격 흐름과 실제 매수 체결이 같은 방향입니다.';tone='goodish'}
+ else if(regime==='하락 흐름'&&st==='LH / LL'&&flowDir<0){decision='하락 압력 강함';decisionWhy='가격 흐름과 실제 매도 체결이 같은 방향입니다.';tone='badish'}
+ else if(rp.ratio!=null&&rp.ratio>.8&&flowDir<=0){decision='상단 추격 주의';decisionWhy='최근 범위 위쪽인데 매수 힘이 받쳐주지 않습니다.';tone='warnish'}
+ else if(regime==='횡보'&&flowDir===0){decision='방향 나올 때까지 대기';decisionWhy='가격도 횡보하고 체결 힘도 한쪽으로 모이지 않습니다.'}
+ else if(flowDir>0){decision='매수 힘 확인 중';decisionWhy='매수 체결은 우세하지만 가격 흐름 확인이 더 필요합니다.'}
+ else if(flowDir<0){decision='매도 압력 주의';decisionWhy='매도 체결이 우세해 신규 진입에는 불리한 흐름입니다.';tone='warnish'}
+ $('decision').textContent=decision;$('decisionWhy').textContent=decisionWhy;$('decisionCard').className='card signal '+tone;
+ let change='변화 없음',changeWhy='현재 흐름이 급격히 꺾이는 신호는 보이지 않습니다.';
+ if(flowDir>0&&f10.d<0){change='매수 약화';changeWhy='30~60초 매수 우세와 달리 최근 10초는 매도 쪽으로 돌아섰습니다.'}
+ else if(flowDir<0&&f10.d>0){change='매도 약화';changeWhy='30~60초 매도 우세와 달리 최근 10초는 매수 쪽으로 돌아섰습니다.'}
+ else if(st==='LH / LL'&&flowDir<0){change='하락 지속';changeWhy='가격 고점·저점이 낮아지고 매도 체결도 우세합니다.'}
+ else if(st==='HH / HL'&&flowDir>0){change='상승 유지';changeWhy='가격 고점·저점이 높아지고 매수 체결도 우세합니다.'}
+ $('change').textContent=change;$('changeWhy').textContent=changeWhy;$('changeHeadline').textContent=change;$('changeExplain').textContent=changeWhy;recordDecisionChange(decision,decisionWhy,p,change);
+ updateTelemetryOutcomes(p);saveTelemetry(stableSetup,regime,tradeable,p,f60,o,st);
+ if(rk){let rrTxt=rk.rr?rk.rr.toFixed(2):'-';$('risk').textContent=`최근 20분: 아래쪽까지 ${Math.abs(rk.down).toFixed(2)}% · 위쪽까지 ${Math.max(0,rk.up).toFixed(2)}%`;let q=CAP/(1+FEE)/p,lo=p*(1+rk.down/100),hi=p*(1+Math.max(0,rk.up)/100),loss=q*lo*(1-FEE)-CAP,gain=q*hi*(1-FEE)-CAP;$('pnl').textContent=`아래쪽 도달 ${fmt(loss)}원 · 위쪽 도달 ${fmt(gain)}원`}
+}
+function manualRefresh(){
+ const b=$('refreshBtn');if(b.disabled)return;b.disabled=true;b.textContent='갱신 중';render();
+ if(!sock||sock.readyState!==1)connect();refreshCandles().finally(()=>{render();b.textContent='완료';setTimeout(()=>{b.disabled=false;b.textContent='새로고침'},700)});
+}
+function setMarket(sym){if(!MARKETS[sym]||sym===symbol)return;symbol=sym;MARKET=MARKETS[sym];localStorage.setItem('goatMarket',symbol);C={1:[],5:[],15:[]};ticker=null;book=null;bookAt=0;trades=[];recentSids=new Set();lastMsg=0;lastTelemetryKey='';candidateSetup='관찰';stableSetup='관찰';document.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===symbol));$('price').textContent='-';$('conn').textContent=symbol+' 불러오는 중';preload()}
+document.querySelectorAll('[data-m]').forEach(b=>{b.classList.toggle('on',b.dataset.m===symbol);b.onclick=()=>setMarket(b.dataset.m)});
+$('refreshBtn').onclick=manualRefresh;
+setInterval(()=>{$('tickAge').textContent=lastMsg?Math.round((Date.now()-lastMsg)/1000)+'s':'-';if(sock&&sock.readyState===1&&Date.now()-lastMsg>12000){$('conn').textContent='지연';sock.close()}},3000);
+let refreshing=false;
+async function refreshCandles(){if(refreshing)return;refreshing=true;try{let a=await getJSON(`${U}1?market=${MARKET}&count=200`);install1m(a)}catch(e){}finally{refreshing=false}}
+setInterval(refreshCandles,30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){let now=Date.now();if(now-resumeAt>60000){resumeAt=now;preload()}else if(!sock||sock.readyState>1)connect()}});
+window.addEventListener('offline',()=>{$('conn').textContent='오프라인';if(sock)sock.close()});
+window.addEventListener('online',()=>{preload()});
+window.addEventListener('pagehide',()=>{paused=true;clearTimeout(reconnectTimer);++connGen;if(sock)sock.close()});
+window.addEventListener('pageshow',()=>{paused=false;if(navigator.onLine)preload()});
+
+
+function loadDecisionEvents(){try{return JSON.parse(localStorage.getItem('goatDecisionEvents')||'[]')}catch{return []}}
+let lastDecisionSaved='';
+function recordDecisionChange(decision,reason,price,change){
+ if(!decision||decision==='판단 준비 중')return;
+ let a=loadDecisionEvents(),prev=a[0];
+ if(prev&&prev.decision===decision){lastDecisionSaved=decision;return}
+ a.unshift({t:new Date().toISOString(),market:MARKET,decision,reason,price,change});
+ try{localStorage.setItem('goatDecisionEvents',JSON.stringify(a.slice(0,100)))}catch{}
+ lastDecisionSaved=decision;renderDecisionHistory();
+}
+function renderDecisionHistory(){let box=$('decisionHistory');if(!box)return;let a=loadDecisionEvents().filter(x=>!x.market||x.market===MARKET);if(!a.length){box.textContent='의미 있는 변화가 생기면 자동으로 기록합니다.';return}box.textContent='';a.slice(0,20).forEach(x=>{let d=document.createElement('div');d.className='metric';let when=new Date(x.t).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});d.textContent=`${when} · ${x.decision} · ${fmt(x.price)}원`;box.appendChild(d)})}
+
+function loadLogs(){try{return JSON.parse(localStorage.getItem('goatLogs')||'[]')}catch{return []}}function saveLogs(a){try{localStorage.setItem('goatLogs',JSON.stringify(a));return true}catch{return false}}function logs(){let a=loadLogs();let box=$('logs');box.textContent='';if(!a.length){box.textContent='기록 없음';return}a.forEach(x=>{let d=document.createElement('div');d.className='metric';d.textContent=`${x.t} · ${fmt(x.p)} · ${x.s}`;box.appendChild(d)})}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));$(b.dataset.p).classList.add('on');b.classList.add('on');renderDecisionHistory()});
+window.GOAT_SELFTEST=()=>({version:'v340',candles:[1,5,15].every(k=>Array.isArray(C[k])),ordered:[1,5,15].every(k=>C[k].every((x,i)=>!i||x.timestamp>C[k][i-1].timestamp)),noPrivateApi:!document.documentElement.innerHTML.includes('Author'+'ization'),wsPublic:W.includes('upbit.com'),originPaced:true,flowConsensus:true});preload();renderDecisionHistory();
+</script><!-- v321: 4종목 동시 WebSocket 수집 -->
+<!-- v322: 종목별 체결금액 불균형 정규화 -->
+<!-- v323: 종목별 30/60초 가격 움직임 수집 -->
+<!-- v324: 적응형 단기 움직임 기준 추가 -->
+<!-- v325: 종목별 호가 간격 필터 -->
+<!-- v326: 가격·체결 동조형 매수 후보 정의 -->
+<!-- v327: 급변 후 추격 주의 분리 -->
+<!-- v328: 메인 상단 4종목 전광판 추가 -->
+<!-- v329: 전광판 행 터치 종목 전환 -->
+<!-- v330: 멀티종목 체크포인트 -->
+<!-- v331: 5천만원 기준 목표 매도가 계산 -->
+<!-- v332: 매수·매도 수수료 각각 0.05% 반영 -->
+<!-- v333: +20/+30/+40/+50만원 목표 추가 -->
+<!-- v334: 목표가는 선택 종목 현재가에 연동 -->
+<!-- v335: 슬리피지 제외 문구 명시 -->
+<!-- v336: 매수 지시 대신 후보/대기/압력 상태로 표현 -->
+<!-- v337: 기록에 market 필드 저장 보정 -->
+<!-- v338: 종목 전환 시 멀티 WebSocket 유지 -->
+<!-- v339: 메인 판단판과 스캐너 역할 분리 -->
+<!-- v340: 멀티종목 전광판+목표가 통합 체크포인트 -->
+<!-- v281: 수동 진입 추적 제거 -->
+<!-- v282: 거래 기록을 자동 판단 변화 기록으로 전환 -->
+<!-- v283: 첫 화면 역할을 현재 상황/움직임/신규 진입/변화로 고정 -->
+<!-- v284: 진입 문구를 행동지시 대신 조건 설명형으로 단순화 -->
+<!-- v285: 가격·체결·변화를 상단 한 카드에 통합 -->
+<!-- v286: 1/5/15분 움직임 유지, 전문용어 노출 제거 -->
+<!-- v287: 방금 달라진 점 독립 카드 추가 -->
+<!-- v288: 의미 있는 판단 변화만 자동 기록 -->
+<!-- v289: 수동 기록·거래 저장 UI 제거 -->
+<!-- v290: 1차 화면 밀도 체크포인트 -->
+<!-- v291: 상세 탭을 판단 근거 전용으로 정리 -->
+<!-- v292: 상세 체결 구간을 한국어 표현으로 통일 -->
+<!-- v293: 주문 대기/왕복비용 표현 단순화 -->
+<!-- v294: 개발·검증 내보내기 UI 제거 -->
+<!-- v295: 기록 탭을 시스템 변화 이력으로 단순화 -->
+<!-- v296: 실시간 카드 여백 축소 -->
+<!-- v297: 수동 포지션 localStorage 의존 제거 -->
+<!-- v298: 기존 실시간 데이터/유동성/체결 계산 보존 -->
+<!-- v299: 기존 telemetry 내부 수집 보존 -->
+<!-- v320: 무스크롤 판단판 통합 체크포인트 -->
+<!-- v261: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v262: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v263: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v264: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v265: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v266: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v267: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v268: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v269: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v270: 체크포인트 통합 점검 -->
+<!-- v271: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v272: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v273: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v274: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v275: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v276: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v277: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v278: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v279: 판단 화면·진입 추적·상세·기록 개선 -->
+<!-- v280: 체크포인트 통합 점검 -->
+<!-- v61: Return clock: exchange ticker timestamp sanity clamp -->
+<!-- v62: Candle freshness based on exchange timestamp with future-clock guard -->
+<!-- v63: VWAP excludes malformed/zero-volume candles -->
+<!-- v64: Orderbook validates positive price/size levels -->
+<!-- v65: Slippage requires 99% depth coverage and exposes coverage -->
+<!-- v66: Effective cost returns N/A when either side depth unavailable -->
+<!-- v67: Tradeability blocks unknown execution cost -->
+<!-- v68: Flow readiness requires 30s span and minimum 5 trades -->
+<!-- v69: Telemetry outcome records gross and estimated net return -->
+<!-- v70: Regression checkpoint 61-70 -->
+<!-- v71: Regime uses completed 15m reference helper -->
+<!-- v72: 5m breakout return uses completed-candle reference helper -->
+<!-- v73: Structure ignores current incomplete 1m candle -->
+<!-- v74: Risk range ignores current incomplete candle explicitly -->
+<!-- v75: Absorption requires minimum absolute 60s delta -->
+<!-- v76: Acceleration requires minimum trade count in both windows -->
+<!-- v77: Orderbook 스프레드 validates non-crossed book -->
+<!-- v78: Reconnect jitter-free capped exponential state reset -->
+<!-- v79: Resume forces REST refresh after 60s suspension -->
+<!-- v80: Regression checkpoint 71-80 -->
+<!-- v81: Alert requires stable setup dwell and exact candidate match -->
+<!-- v82: Alert blocks N/A slippage rather than treating as safe -->
+<!-- v83: Alert records data ages and liquidity cost -->
+<!-- v84: Cooldown key includes setup plus structure/regime -->
+<!-- v85: Forward outcomes preserve first snapshot only -->
+<!-- v86: Telemetry cap raised to 1000 for validation sample -->
+<!-- v87: Forward summary adds median return -->
+<!-- v88: Forward summary adds net-of-estimated-cost average -->
+<!-- v89: Journal schema bumped with cost/data quality fields -->
+<!-- v90: Regression checkpoint 81-90 -->
+<!-- v91: REST validation requires monotonic candle timestamps -->
+<!-- v92: WebSocket trade timestamp fallback uses message receive time -->
+<!-- v93: Duplicate trade cache key namespace hardened -->
+<!-- v94: Book freshness and ticker freshness shown separately -->
+<!-- v95: Tradeability reason separated from state label -->
+<!-- v96: Alert reason includes cost gate context -->
+<!-- v97: No-trade safety gate for extreme 60m range >1.5% -->
+<!-- v98: Diagnostic self-test object added -->
+<!-- v99: Final validation metadata and schema version -->
+<!-- v100: Final v100 validation candidate; no auto-order/API keys -->
+
+
+<!-- v121: fix install1m monotonic-order validation -->
+<!-- v122: sort REST candles on a copy to avoid mutating payload -->
+<!-- v123: reject empty REST candle arrays -->
+<!-- v124: retain one-request browser Origin pacing -->
+<!-- v125: retain 10.5s Origin safety interval -->
+<!-- v126: keep REST timeout abort protection -->
+<!-- v127: preserve REST retry after failure -->
+<!-- v128: open WebSocket only after Origin gate -->
+<!-- v129: guard stale async WebSocket generation -->
+<!-- v130: retain capped reconnect backoff -->
+<!-- v131: add 30s flow direction to directional consensus -->
+<!-- v132: require 30s and 60s agreement for BUYING -->
+<!-- v133: require 30s and 60s agreement for SELLING -->
+<!-- v134: show MIXED when 30s and 60s disagree -->
+<!-- v135: keep 10s horizon for acceleration only -->
+<!-- v136: require acceleration direction to match consensus -->
+<!-- v137: keep minimum acceleration rate floor -->
+<!-- v138: use consensus direction for buy absorption -->
+<!-- v139: use consensus direction for sell absorption -->
+<!-- v140: checkpoint 140 regression suite -->
+<!-- v141: use consensus direction for pullback continuation -->
+<!-- v142: use consensus direction for downtrend setup -->
+<!-- v143: use consensus direction for breakout watch -->
+<!-- v144: prevent one tiny 60s delta from creating setup -->
+<!-- v145: preserve 30s live-flow warm-up requirement -->
+<!-- v146: preserve minimum five-trade warm-up -->
+<!-- v147: preserve duplicate trade suppression -->
+<!-- v148: preserve five-minute rolling trade buffer -->
+<!-- v149: preserve exchange trade timestamp fallback -->
+<!-- v150: checkpoint 150 regression suite -->
+<!-- v151: preserve orderbook freshness gate -->
+<!-- v152: preserve ticker freshness gate -->
+<!-- v153: preserve non-crossed 스프레드 validation -->
+<!-- v154: preserve 0.25% book-depth window -->
+<!-- v155: preserve 50M KRW slippage simulation -->
+<!-- v156: preserve 99% depth coverage requirement -->
+<!-- v157: keep unknown execution cost as CAUTION -->
+<!-- v158: keep impact over 0.06% as CAUTION -->
+<!-- v159: keep 스프레드 over 0.04% as CAUTION -->
+<!-- v160: checkpoint 160 regression suite -->
+<!-- v161: preserve extreme-volatility NO TRADE gate -->
+<!-- v162: preserve high-volatility CAUTION gate -->
+<!-- v163: preserve completed-candle structure window -->
+<!-- v164: preserve 20m risk range excluding live candle -->
+<!-- v165: preserve rolling 60분 VWAP location -->
+<!-- v166: preserve fee-aware 50M structural P/L -->
+<!-- v167: preserve setup three-second dwell -->
+<!-- v168: preserve DATA/LIQ/FLOW/STRUCT/DWELL checklist -->
+<!-- v169: preserve stale-data setup suppression -->
+<!-- v170: checkpoint 170 regression suite -->
+<!-- v171: align alert direction with 30s+60s consensus -->
+<!-- v172: block alert when execution cost unavailable -->
+<!-- v173: block alert above 0.22% estimated round-trip cost -->
+<!-- v174: block alert in LH/LL structure -->
+<!-- v175: block alert in negative 15m trend -->
+<!-- v176: block alert when buy impact exceeds 0.06% -->
+<!-- v177: preserve alert cooldown by setup/structure/regime -->
+<!-- v178: preserve foreground-only iPhone disclosure -->
+<!-- v179: preserve no API-key/no auto-order boundary -->
+<!-- v180: checkpoint 180 regression suite -->
+<!-- v181: preserve telemetry first forward snapshot -->
+<!-- v182: preserve +5/+15/+30m forward outcomes -->
+<!-- v183: preserve gross and estimated-net outcomes -->
+<!-- v184: preserve telemetry cap at 1000 -->
+<!-- v185: preserve median forward summary -->
+<!-- v186: preserve local journal storage guards -->
+<!-- v187: preserve JSON export paths -->
+<!-- v188: extend self-test with candle ordering -->
+<!-- v189: extend self-test with Origin pacing flag -->
+<!-- v190: checkpoint 190 regression suite -->
+<!-- v191: extend self-test with flow-consensus flag -->
+<!-- v192: verify public Upbit WebSocket endpoint only -->
+<!-- v193: verify no Authorization credential path -->
+<!-- v194: verify single-file GitHub Pages deployment -->
+<!-- v195: remove manifest dependency -->
+<!-- v196: normalize all visible version labels to v200 -->
+<!-- v197: normalize WebSocket ticket to goat-v200 -->
+<!-- v198: normalize journal/export metadata to v200 -->
+<!-- v199: final static regression and JavaScript parse -->
+<!-- v200: v200 iPhone live release candidate -->
+
+<!-- v201: 주요 화면 제목과 상태 용어 한글화 -->
+<!-- v202: 시장 레짐 표시 한글화 -->
+<!-- v203: 체결 흐름 BUYING/SELLING/MIXED 한글화 -->
+<!-- v204: 거래 가능성/위험 상태 한글화 -->
+<!-- v205: Setup 관찰 상태 한글화 -->
+<!-- v206: 체크리스트와 유동성 설명 한글화 -->
+<!-- v207: 상단 수동 새로고침 버튼 추가 -->
+<!-- v208: 새로고침 중 중복 탭 방지 및 완료/재시도 피드백 -->
+<!-- v209: 새로고침 시 캔들 갱신 + 필요 시 WebSocket 재연결 -->
+<!-- v210: 한글 UI/새로고침/기존 실시간 로직 회귀검증 체크포인트 -->
+<!-- v211: 메인 관찰 카드 제거 및 진단정보 상세 탭 이동 -->
+<!-- v212: 메인 첫 카드 현재 상황 요약 추가 -->
+<!-- v213: 1분·5분·15분 가격 움직임 동시 표시 -->
+<!-- v214: VWAP 용어 제거 및 최근 평균 대비 위치를 자연어로 표시 -->
+<!-- v215: HH/HL·LH/LL 용어를 자연어 가격 흐름으로 변환 -->
+<!-- v216: Delta 원시값 메인 숨김 및 체결 힘 자연어 요약 -->
+<!-- v217: 10초 체결 방향으로 단기 힘 약화/반등 감지 -->
+<!-- v218: 호가·스프레드·슬리피지 원시값 메인 숨김 -->
+<!-- v219: 주문 여건을 원활/주의 필요로 단순화 -->
+<!-- v220: 회귀 체크포인트: 메인 정보 구조 및 기존 실시간 엔진 보존 -->
+<!-- v221: 거래 가능성 명칭을 진입 환경으로 재설계 -->
+<!-- v222: 정상 상태를 거래 여건 양호로 사용자 표현 분리 -->
+<!-- v223: 최근 20분 위치를 상단/중간/하단 자연어로 표시 -->
+<!-- v224: 구조손익 상단/하단 표현을 범위 도달 시 손익으로 수정 -->
+<!-- v225: 5천만원 예상 왕복비용을 메인에 명시 -->
+<!-- v226: 데이터 지연 시 판단 보류 문구 적용 -->
+<!-- v227: 고변동 시 추격 진입 위험 문구 적용 -->
+<!-- v228: 진입 환경 이유 한 문장 설명 추가 -->
+<!-- v229: 내부 계산 상태와 사용자 표시 상태 분리 -->
+<!-- v230: 회귀 체크포인트: 비용·유동성·위험 계산 보존 -->
+<!-- v231: 흐름 변화 카드 추가 -->
+<!-- v232: 상승 구조+매수 체결 일치 시 상승 흐름 유지 표시 -->
+<!-- v233: 하락 구조+매도 체결 일치 시 하락 흐름 지속 표시 -->
+<!-- v234: 30~60초 방향 대비 최근 10초 역전 시 힘 약화 표시 -->
+<!-- v235: 최근 범위 상단에서 매수 힘 부재 시 상단 추격 주의 -->
+<!-- v236: 가격 흐름과 체결 방향 일치 시 현재 상황 강조 -->
+<!-- v237: 현재 상황 카드 상태별 테두리 강조 -->
+<!-- v238: 새로고침 즉시 화면 재계산 후 REST 백그라운드 갱신 -->
+<!-- v239: 실시간 연결 정상 시 새로고침에서 WebSocket 재연결 방지 -->
+<!-- v240: 최종 회귀 체크포인트: iPhone 단타 판단형 메인 및 v240 self-test -->
+
+<!-- v241: 메인 화면 알림 ON/OFF 버튼 제거 -->
+<!-- v242: 메인 화면 쿨다운 설정 제거 -->
+<!-- v243: 메인 화면 알림 테스트 제거 -->
+<!-- v244: iPhone 백그라운드 알림 오해 소지 안내/제어 UI 제거 -->
+<!-- v245: 알림 실행 로직을 실시간 판단 엔진에서 분리하여 불필요한 분기 제거 -->
+<!-- v246: 현재 상태 기록 버튼을 메인에서 기록 탭으로 이동 -->
+<!-- v247: 첫 화면을 판단 카드 5개 + 새로고침만 남기는 구조로 단순화 -->
+<!-- v248: 기존 가격/체결/유동성/진입환경/흐름변화 계산 보존 확인 -->
+<!-- v249: v250 버전/티켓/내보내기 메타데이터 정합성 갱신 -->
+<!-- v250: 10단계 체크포인트 - 메인 UI 단순화 및 정적 회귀검증 후보 -->
+<!-- v251: 첫 화면 3개 핵심 카드로 압축 -->
+<!-- v252: 지금 판단 카드에 가격·체결·변화 요약 통합 -->
+<!-- v253: 가격 움직임을 1·5·15분 한 줄 영역으로 축소 -->
+<!-- v254: 별도 매수·매도 힘 카드 제거, 핵심값 상단 통합 -->
+<!-- v255: 진입 환경을 지금 진입 매력으로 변경 -->
+<!-- v256: 최근 범위 상·하단 가상손익 메인에서 제거 -->
+<!-- v257: 5천만원 왕복비용을 원화와 퍼센트 동시 표시 -->
+<!-- v258: 흐름 변화 카드를 상단 한눈 요약으로 통합 -->
+<!-- v259: 전문용어와 설명 문구 추가 축약 -->
+<!-- v260: iPhone 무스크롤 첫 화면 레이아웃 체크포인트 -->
+</body></html>
+<!-- v101-v110: iPhone production fix: one REST origin request, local 5m/15m aggregation, 11s retry/reconnect floor -->
+<!-- v111-v120: minute-aligned return clock, v60 label cleanup, single-file deployment cleanup, iPhone live candidate -->
